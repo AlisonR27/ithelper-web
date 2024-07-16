@@ -15,11 +15,11 @@
 <script lang="ts" setup>
 const { user } = useIndexStore()
 
-function newTicket() {
-  navigateTo('/dashboard/ticket/new')
+async function newTicket() {
+  await navigateTo('/dashboard/ticket/new')
 }
-function manageUser() {
-  navigateTo('/user')
+async function manageUser() {
+  await navigateTo('/user')
 }
 </script>
 

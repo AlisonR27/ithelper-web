@@ -66,12 +66,11 @@ const state = reactive({
     email: "",
     nomeUsuario: "",
     dataNascimento:  "",
-    password: "******",
     profilePicture: null,
 })
 
 
-const { user, getToken, getUserId } = useIndexStore()
+const { user, getToken, getUserId, setProfilePicture } = useIndexStore()
 
 const isLoading = ref(false);
 
@@ -108,33 +107,38 @@ function saveCropped() {
 async function onSubmit (event: FormSubmitEvent<Schema>) {
     console.log("Teste")
     try {
+        isLoading.value = true
+        setProfilePicture(state.profilePicture)
         const result = await $fetch('/api/users/save/'+ getUserId(), {
-            method: "PUT",
+            body: JSON.stringify(state),
             headers: {
                 "Authorization": `Bearer ${token.value}`
             }
         })
+        isLoading.value = false
     } catch (exc) {
         console.log(exc)
+        isLoading.value = false
     }
 }
 
-const headers = useRequestHeaders(["cookie"]);
-const jwt = useCookie("jwt");
-const token = useCookie("access_token");
-const userData = await $fetch(`/api/users/${getUserId()}`,{
-    method: "GET",
-    headers: {
-        "Authorization": `Bearer ${token.value}`
-    },
-}) as any
+// const headers = useRequestHeaders(["cookie"]);
+// const jwt = useCookie("jwt");
+// const token = useCookie("access_token");
+// const userData = await $fetch(`/api/users/${getUserId()}`,{
+//     method: "GET",
+//     headers: {
+//         "Authorization": `Bearer ${token.value}`,
+//         'Content-Type': 'multipart/form-data'
+//     },
+// }) as any
 
-if (userData) {
-    state.email = userData.email
-    state.nomeCompleto = userData.nomeCompleto
-    state.nomeUsuario = userData.nomeUsuario
-    state.dataNascimento = new Date(userData.dataNascimento).toISOString().substring(0,10)
-}
+// if (userData) {
+//     state.email = userData.email
+//     state.nomeCompleto = userData.nomeCompleto
+//     state.nomeUsuario = userData.nomeUsuario
+//     state.dataNascimento = new Date(userData.dataNascimento).toISOString().substring(0,10)
+// }
 </script>
 
 <style>

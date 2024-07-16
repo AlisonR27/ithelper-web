@@ -31,6 +31,8 @@ export const useIndexStore = defineStore('index', () => {
   }
 
   function clearStore() {
+    const cookie = useCookie('jwt')
+    cookie.value = null
     user.value = {}
   }
 
@@ -44,6 +46,12 @@ export const useIndexStore = defineStore('index', () => {
     return token.value
   }
 
+  function setProfilePicture(base64:any) {
+    const temp = getUser();
+    user.value.avatar = base64
+    setUser(JSON.stringify(user))
+  }
+
   return {
     user,
     token,
@@ -53,6 +61,7 @@ export const useIndexStore = defineStore('index', () => {
     setUserData,
     getUserId,
     clearStore,
-    getToken
+    getToken,
+    setProfilePicture
   }
 })

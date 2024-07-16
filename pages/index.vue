@@ -23,6 +23,10 @@ const hero = ref(null)
 
 const isHeaderFixed = ref(false)
 
+const cookie = useCookie('jwt')
+if (cookie.value != null) {
+  await navigateTo("/dashboard")
+}
 
 </script>
 <template class="">

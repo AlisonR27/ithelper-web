@@ -12,6 +12,15 @@
 
 const props = defineProps(["routes"])
 
+const emit = defineEmits(['mobileToggle'])
+
+const route = useRoute()
+
+watch(route, (from, to) => {
+  console.log(to)
+  emit('mobileToggle')
+}, )
+
 </script>
 
 <style>

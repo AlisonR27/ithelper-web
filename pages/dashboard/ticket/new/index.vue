@@ -1,7 +1,7 @@
 <template>
-  <div class="mt-10">
+  <div class="mt-10 w-full">
     <h2 class="font-bold text-2xl mb-8">Abrir novo chamado</h2>
-    <UForm :schema="schema" :state="state" @submit="onSubmit" class="flex flex-col gap-y-4">
+    <UForm :schema="schema" :state="state" @submit="onSubmit" class="flex flex-col gap-y-4 w-4/12">
         <UFormGroup label="Title" name="title">
             <UInput v-model="state.title" type="text"/>
         </UFormGroup>
